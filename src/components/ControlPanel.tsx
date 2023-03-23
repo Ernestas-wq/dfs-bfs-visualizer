@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 type Props = {
   output: number[];
   list: number[];
+  isAnimating: boolean;
   handleStart: () => void;
   traverseType: TraverseType;
   setTraverseType: (type: TraverseType) => void;
@@ -16,6 +17,7 @@ type Props = {
 const ControlPanel = ({
   output,
   list,
+  isAnimating,
   handleStart,
   traverseType,
   setTraverseType,
@@ -71,11 +73,11 @@ const ControlPanel = ({
             </Select>
           </FormControl>
         </div>
-        <div className='w-fit'>
+        <div className={`w-fit ${isAnimating ? 'cursor-not-allowed' : ''}`}>
           <Button
             variant='outlined'
             size='large'
-            disabled={!!!traverseType}
+            disabled={isAnimating}
             sx={{
               border: '2px solid #0EA5E9',
               margin: '16px 0 0 10px',
@@ -83,6 +85,11 @@ const ControlPanel = ({
               '&:hover': {
                 backgroundColor: '#0EA5E9',
                 border: '2px solid #fff',
+              },
+              '&.Mui-disabled': {
+                border: '2px solid grey',
+                cursor: 'not-allowed',
+                color: 'grey',
               },
             }}
             onClick={() => handleStart()}

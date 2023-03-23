@@ -6,10 +6,12 @@ import ControlPanel from './components/ControlPanel';
 import { AnimationType } from './types/AnimationType';
 import { TraverseType } from './types/TraverseType';
 import { Animation } from './types/Animation';
+import { ANIMATION_DELAY_MS } from './constants';
 
 function App() {
   const [list, setList] = useState<number[]>([]);
   const [output, setOutput] = useState<number[]>([]);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [traverseType, setTraverseType] = useState<TraverseType>(
     TraverseType.DFS
   );
@@ -39,6 +41,11 @@ function App() {
 
   const handleStart = () => {
     setOutput([]);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, (stackAnimations.length - 1) * ANIMATION_DELAY_MS);
+
     handleAnimations(
       traverseType === TraverseType.DFS ? stackAnimations : queueAnimations
     );
@@ -54,6 +61,7 @@ function App() {
         <ControlPanel
           output={output}
           list={list}
+          isAnimating={isAnimating}
           handleStart={handleStart}
           traverseType={traverseType}
           setTraverseType={setTraverseType}
