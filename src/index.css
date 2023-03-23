@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.binary-tree {
-  /* width: 100%; */
-}
-
 .binary-tree div {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -54,6 +50,11 @@
 
 .binary-tree > div > span::before {
   content: none;
+}
+
+.test fieldset {
+  border-color: #0ea5e9;
+  border-width: 2px;
 }
 
 @media (min-width: 768px) {

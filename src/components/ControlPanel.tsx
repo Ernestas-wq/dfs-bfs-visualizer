@@ -1,70 +1,112 @@
-import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { TraverseType } from '../types/TraverseType';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 type Props = {
   output: number[];
-  stack: number[];
+  list: number[];
   handleStart: () => void;
+  traverseType: TraverseType;
+  setTraverseType: (type: TraverseType) => void;
 };
 
-const ControlPanel = ({ output, stack, handleStart }: Props) => {
+const ControlPanel = ({
+  output,
+  list,
+  handleStart,
+  traverseType,
+  setTraverseType,
+}: Props) => {
+  const handleChange = (value: TraverseType) => {
+    setTraverseType(value);
+  };
+
   return (
-    <div className='ml-5'>
+    <div className='ml-5 w-full md:w-1/2'>
       <div className='text-white'>
-        <div>
-          <Checkbox
-            inputProps={{ 'aria-label': 'DFS' }}
+        <div className='ml-2'>
+          <FormControl sx={{ minWidth: 150 }} className='select-container'>
+            <InputLabel
+              id='demo-simple-select-autowidth-label'
+              sx={{
+                color: '#fff',
+                '&.Mui-focused': {
+                  color: '#0EA5E9',
+                },
+              }}
+            >
+              Traverse Type
+            </InputLabel>
+
+            <Select
+              labelId='demo-simple-select-autowidth-label'
+              value={traverseType}
+              className='test'
+              label='TraverseType'
+              sx={{
+                color: 'white',
+                '.MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0EA5E9',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0EA5E9',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0EA5E9',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#0EA5E9',
+                },
+                '.MuiSvgIcon-root ': {
+                  fill: 'white !important',
+                },
+              }}
+              onChange={(e) => handleChange(e.target.value as TraverseType)}
+            >
+              <MenuItem value={TraverseType.DFS}>DFS</MenuItem>
+              <MenuItem value={TraverseType.BFS}>BFS</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className='w-fit'>
+          <Button
+            variant='outlined'
+            size='large'
+            disabled={!!!traverseType}
             sx={{
-              color: '#0EA5E9',
-              '&.Mui-checked': {
-                color: '#0EA5E9',
+              border: '2px solid #0EA5E9',
+              margin: '16px 0 0 10px',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#0EA5E9',
+                border: '2px solid #fff',
               },
             }}
-          />
-          DFS
+            onClick={() => handleStart()}
+          >
+            START
+          </Button>
         </div>
-        <div>
-          <Checkbox
-            inputProps={{ 'aria-label': 'DFS' }}
-            sx={{
-              color: '#0EA5E9',
-              '&.Mui-checked': {
-                color: '#0EA5E9',
-              },
-            }}
-          />
-          BFS
-        </div>
-        <Button
-          variant='outlined'
-          size='large'
-          sx={{
-            marginLeft: '9px',
-            border: '1px solid #0EA5E9',
-            color: '#fff',
-            '&:hover': {
-              backgroundColor: '#0EA5E9',
-            },
-          }}
-          onClick={() => handleStart()}
-        >
-          START
-        </Button>
 
         <div className='mt-3 ml-2'>
-          <p className='text-xl'>STACK: </p>
+          <p className='text-xl'>
+            {traverseType === TraverseType.BFS ? 'QUEUE : ' : 'STACK : '}
+          </p>
           <div className='text-5xl text-sky-500'>
             [
-            {stack.map((val, i) => (
+            {list.map((val, i) => (
               <span key={i} className='text-4xl text-white'>
-                {val} {i !== output.length - 1 && ', '}
+                {val} {i !== list.length - 1 && ', '}
               </span>
             ))}
             ]
           </div>
         </div>
         <div className='mt-3 ml-2'>
-          <p className='text-xl'>OUTPUT: </p>
+          <p className='text-xl'>OUTPUT :</p>
           <div className='text-5xl text-sky-500'>
             [
             {output.map((val, i) => (
