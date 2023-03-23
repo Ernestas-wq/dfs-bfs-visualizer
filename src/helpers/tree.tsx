@@ -1,4 +1,4 @@
-import { TreeNode } from './types/TreeNode';
+import { TreeNode } from '../types/TreeNode';
 
 export const tree: TreeNode = {
   val: 4,
@@ -7,7 +7,7 @@ export const tree: TreeNode = {
     left: {
       val: 1,
       left: {
-        val: 7,
+        val: -3,
         left: null,
         right: null,
       },
