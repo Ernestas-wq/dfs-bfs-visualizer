@@ -27,7 +27,7 @@ const ControlPanel = ({
   };
 
   return (
-    <div className='ml-5 w-full md:w-1/2'>
+    <div className='w-full md:w-1/2 sm:ml-5'>
       <div className='text-white'>
         <div className='ml-2'>
           <FormControl sx={{ minWidth: 150 }} className='select-container'>
