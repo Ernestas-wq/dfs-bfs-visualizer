@@ -39,12 +39,11 @@ function App() {
       // add remove operations
       setTimeout(() => {
         setList((prevList) => {
-          const newStack = [...prevList];
+          const newList = [...prevList];
           animation.animationType === AnimationType.DEQUE
-            ? newStack.shift()
-            : newStack.pop();
-          console.log(newStack);
-          return newStack;
+            ? newList.shift()
+            : newList.pop();
+          return newList;
         });
 
         setActiveNode({
